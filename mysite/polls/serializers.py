@@ -40,19 +40,25 @@ class OsobaSerializer(serializers.ModelSerializer):
             )
         return value
 
-class DruzynaSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    kraj = serializers.CharField(required=True)
-    nazwa = serializers.CharField(required=True)
 
-    def create(self, validated_data):
-        return Druzyna.objects.create(**validated_data)
+class DruzynaSerializer(serializers.ModelSerializer):
+    # id = serializers.IntegerField(read_only=True)
+    # kraj = serializers.CharField(required=True)
+    # nazwa = serializers.CharField(required=True)
 
-    def update(self, instance, validated_data):
-        instance.kraj = validated_data.get('kraj', instance.kraj)
-        instance.nazwa = validated_data.get('nazwa', instance.nazwa)
-        instance.save()
-        return instance
+    class Meta:
+        model = Druzyna
+        fields = ['id', 'kraj', 'nazwa']
+
+
+    # def create(self, validated_data):
+    #     return Druzyna.objects.create(**validated_data)
+    #
+    # def update(self, instance, validated_data):
+    #     instance.kraj = validated_data.get('kraj', instance.kraj)
+    #     instance.nazwa = validated_data.get('nazwa', instance.nazwa)
+    #     instance.save()
+    #     return instance
 
 
 class QuestionModelSerializer(serializers.ModelSerializer):
